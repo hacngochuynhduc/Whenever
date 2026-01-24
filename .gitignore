@@ -1,0 +1,19 @@
+# Build output
+bin/
+obj/
+
+# Rider / IntelliJ
+.idea/
+*.DotSettings.user
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Logs
+*.log
+
+# OS
+Thumbs.db
+.DS_Store
