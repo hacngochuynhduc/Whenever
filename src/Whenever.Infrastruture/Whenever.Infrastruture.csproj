@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Data\" />
+      <Folder Include="Manager\" />
       <Folder Include="Migrations\" />
       <Folder Include="Repositories\" />
     </ItemGroup>
@@ -23,6 +23,10 @@
       </PackageReference>
       <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.8" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Whenver.Base\Whenver.Base.csproj" />
     </ItemGroup>
 
 </Project>

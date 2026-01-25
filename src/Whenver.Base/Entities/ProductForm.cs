@@ -1,6 +1,10 @@
-﻿namespace Whenver.Base.Entities;
+﻿using Whenver.Base.Models;
 
-public class ProductForm
+namespace Whenver.Base.Entities;
+
+public class ProductForm : BaseEntity<Guid>
 {
-    
+    public string FormName { get; set; }
+    public string Description { get; set; }
+    public virtual Product Product { get; set; }
 }

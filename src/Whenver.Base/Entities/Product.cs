@@ -1,4 +1,5 @@
-﻿using Whenver.Base.Models;
+﻿using Whenver.Base.Entities.ProductOrder;
+using Whenver.Base.Models;
 
 namespace Whenver.Base.Entities;
 
@@ -14,4 +15,9 @@ public class Product : BaseEntity<Guid>
     public string? Details { get; set; }
     public string? Slug { get; set; }
     public virtual Category Category { get; set; }
+    public virtual ICollection<Images> ProductImages { get; set; } = new  List<Images>();
+    public virtual ICollection<ProductColor> ProductColors { get; set; } = new  List<ProductColor>();
+    public virtual ICollection<OrderItem> OrderItems { get; set; } = new  List<OrderItem>();
+    public virtual ICollection<ProductInventory> ProductInventories { get; set; } = new  List<ProductInventory>();
+    public virtual ICollection<CartItem> CartItems { get; set; } = new  List<CartItem>();
 }
