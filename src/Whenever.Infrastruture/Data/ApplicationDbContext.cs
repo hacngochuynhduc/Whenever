@@ -91,19 +91,23 @@ public class
     
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        var entries = ChangeTracker.Entries()
-            .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified);
+        // Lọc ra các entry đang Added hoặc Modified
+        var entries = ChangeTracker.Entries();
 
         foreach (var entry in entries)
         {
-            // Tự động điền ngày giờ
-            if (entry.State == EntityState.Added)
+            // Kiểm tra xem Entity có thuộc tính mong muốn không để tránh crash
+            // Hoặc tốt hơn là kiểm tra xem nó có kế thừa BaseEntity không
+            var createdAtProp = entry.Metadata.FindProperty("CreatedAt");
+            var updatedAtProp = entry.Metadata.FindProperty("UpdatedAt");
+
+            if (entry.State == EntityState.Added && createdAtProp != null)
             {
                 entry.Property("CreatedAt").CurrentValue = DateTime.UtcNow;
                 entry.Property("CreatedBy").CurrentValue = userContext.UserId?.ToString();
             }
-        
-            if (entry.State == EntityState.Modified)
+    
+            if (entry.State == EntityState.Modified && updatedAtProp != null)
             {
                 entry.Property("UpdatedAt").CurrentValue = DateTime.UtcNow;
                 entry.Property("UpdatedBy").CurrentValue = userContext.UserId?.ToString();

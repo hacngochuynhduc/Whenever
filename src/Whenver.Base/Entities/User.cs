@@ -18,9 +18,9 @@ public enum UserType
 public class User : BaseIdentityUser
 {
     public UserType UserType { get; set; }
-    public string FirstName  { get; set; }
-    public string LastName  { get; set; }
-    public string AvatarUrl  { get; set; }
+    public string? FirstName  { get; set; }
+    public string? LastName  { get; set; }
+    public string? AvatarUrl  { get; set; }
     public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
     public ICollection<UserClaim> UserClaims { get; set; } = new List<UserClaim>(); 
     public ICollection<UserLogin> UserLogins { get; set; } = new List<UserLogin>();

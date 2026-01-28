@@ -22,7 +22,7 @@ public class UserContext(IHttpContextAccessor httpContextAccessor) : IUserContex
     public IEnumerable<string> Roles => User?.FindAll(ClaimTypes.Role)?
         .Select(u => u.Value) ?? Enumerable.Empty<string>();
     public bool IsAuthenticated => User?.Identity?.IsAuthenticated ?? false;
-    public bool IsAdmin => Roles.Contains("Admin");
+    public bool IsSystemAdmin => Roles.Contains("SystemAdmin");
 
     public bool IsEndUser => Roles.Contains("User");
 

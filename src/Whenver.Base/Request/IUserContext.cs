@@ -7,5 +7,5 @@ public interface IUserContext
     IEnumerable<string> Roles { get; }
     bool IsAuthenticated { get; }
     bool IsEndUser  { get; }
-    bool IsAdmin { get; }
+    bool IsSystemAdmin { get; }
 }

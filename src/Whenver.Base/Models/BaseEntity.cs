@@ -12,7 +12,7 @@ public abstract class BaseEntity<T> : IEntity<T>, IStatusTrackable<T>
     public bool IsDeleted { get; set; } = false;
 
     public DateTime? CreatedDate { get; set; } = DateTime.UtcNow;
-    public DateTime? UpdateDate { get; set; }
+    public DateTime? UpdatedDate { get; set; }
     
     public T Id { get; set; }
     public bool IsActive { get; set; }

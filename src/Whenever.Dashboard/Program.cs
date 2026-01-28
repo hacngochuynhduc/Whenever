@@ -1,10 +1,14 @@
 ﻿using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Whenever.Dashboard;
+using Whenever.Infrastruture;
 using Whenever.Infrastruture.Data;
+using Whenver.Base.Entities;
 using Whenver.Base.Request;
 
 
@@ -42,6 +46,11 @@ builder.Services.AddAuthentication(options =>
     }; 
 });
 
+builder.Services.AddDbContextService<ApplicationDbContext>();
+builder.Services.AddUnitOfWorkService<ApplicationDbContext>();
+
+
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -77,6 +86,14 @@ app.UseCors(policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader())
 
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    await RoleSeeder.SeedRolesAndProfilesAsync(roleManager, userManager, dbContext);
+
+}
 app.Run();
